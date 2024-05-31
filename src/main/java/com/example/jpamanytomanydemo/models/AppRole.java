@@ -2,6 +2,8 @@ package com.example.jpamanytomanydemo.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,8 +16,8 @@ public class AppRole {
     private String role;
     private String description;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<AppUser> users;
+    @OneToMany(mappedBy = "appRole")
+    private List<AppUserRole> userRoles = new ArrayList<>();
 
     public int getAppRoleId() {
         return appRoleId;
@@ -41,11 +43,11 @@ public class AppRole {
         this.description = description;
     }
 
-    public Set<AppUser> getUsers() {
-        return users;
+    public List<AppUserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setUsers(Set<AppUser> users) {
-        this.users = users;
+    public void setUserRoles(List<AppUserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }

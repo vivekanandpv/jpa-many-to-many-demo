@@ -2,7 +2,8 @@ package com.example.jpamanytomanydemo.models;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class AppUser {
@@ -13,13 +14,8 @@ public class AppUser {
     private String username;
     private String email;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "app_user_id"),
-            inverseJoinColumns = @JoinColumn(name = "app_role_id")
-    )
-    private Set<AppRole> roles;
+    @OneToMany(mappedBy = "appUser", fetch = FetchType.EAGER)
+    private List<AppUserRole> userRoles = new ArrayList<>();
 
     public int getAppUserId() {
         return appUserId;
@@ -45,11 +41,11 @@ public class AppUser {
         this.email = email;
     }
 
-    public Set<AppRole> getRoles() {
-        return roles;
+    public List<AppUserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setRoles(Set<AppRole> roles) {
-        this.roles = roles;
+    public void setUserRoles(List<AppUserRole> appRoles) {
+        this.userRoles = appRoles;
     }
 }
